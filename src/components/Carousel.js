@@ -1,29 +1,27 @@
 import Carousel from 'react-bootstrap/Carousel';
-// import ExampleImg from  './../img';
-import { useState} from 'react';
+import { useState } from 'react';
 const images = [
-  {image: "https://images.pexels.com/photos/169647/pexels-photo-169647.jpeg?auto=compress&cs=tinysrgb&w=600",
-  alt: "tester1",
-  header: "slide1",
-  content: "hihi"}
+  {image: require("./../img/vancouverBanner1024.jpg"),
+  alt: "VancouverBanner",
+  header: "Welcome to Vancouver!" ,
+  content: "We got your back starting in this city!"}
   ,
-  {image: "https://images.pexels.com/photos/313782/pexels-photo-313782.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+  {image: require("./../img/TransportBanner1024.png"),
   alt: "tester2",
-  header: "slide2",
-  content: "hello hello"}
+  header: "Boost start your Vancouver experience with us!",
+  content: "We can match your need on housing advise, transportation, turtoring, employment, socializing, and other general tasks with our job seeker. Learn more about us!"}
   ,
-  { image: "https://images.pexels.com/photos/773471/pexels-photo-773471.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  alt: "tester3",
-  header: "slide 3",
-  content: "yoyoyo"
+  { image:require("./../img/UnitedBanner1024.png"),
+  alt: "Join Us as a job seeker",
+  header: "Do you want to contribute to your community?",
+  content: "Join us and give the new comer a hand and expand your network!"
   }
 ];
 function CarouselComponent() {
   const [index, setIndex] = useState(0);
   const hadnleDotClick = (selectedIndex) => setIndex(selectedIndex);
   return (
-    // <div className='carouselComponent'>
-    <div style={{ display: 'block', width: '70%', padding: 30, margin:'auto, 20px'}}>
+    <div className='carouselComponent' style={{ display: 'block', width: '80%', padding: 30, margin:'auto', border: "rgba(255,255,255,0), solid, 2px", borderRadius: "20px"}}>
       <Carousel activeIndex={index} onSelect={hadnleDotClick} fade>
       {images.map((slide) => {
         return (
@@ -31,11 +29,13 @@ function CarouselComponent() {
             <img 
             className= "d-block w-100"
             src = {slide.image}
-            alt={slide.alt}
+            alt = {slide.alt}
             />
             <Carousel.Caption>
-              <h3>{slide.header}</h3>
-              <p>{slide.content}</p>
+              <div style={{backgroundColor: "rgba(0,0,0,0.5)", border: "rgba(255,255,255,0), solid, 2px", borderRadius: "20px", marginBottom:0, width:"80%", marginLeft:"auto", marginRight:"auto", padding:"1%"}}>
+                <h2>{slide.header}</h2>
+                <p style={{fontSize: "18px"}}>{slide.content}</p>
+              </div>
             </Carousel.Caption>
             </Carousel.Item>
           )

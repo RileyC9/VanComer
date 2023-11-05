@@ -27,7 +27,11 @@
 .App-link {
   color: #61dafb;
 }
-
+.mainWrapper {
+  margin: auto;
+  /* display: block; */
+  width: 80%;
+}
 /* @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -38,13 +42,16 @@
 } */
 /* Carousel Component
 */
+.carousel-inner img {
+  margin: auto;
+}
 /* .App-header{
   font-size: 1rem;
   text-align:center;
   font-family:Arial, Helvetica, sans-serif;
   padding-bottom: 2rem;
 }
-.carousel-images {
+/* .carousel-images {
   position: relative;
   border-radius: 10px;
   height: 400px;
@@ -89,4 +96,4 @@
 }
 .active{
   background-color: #fa2020;
-} */
+} */ 

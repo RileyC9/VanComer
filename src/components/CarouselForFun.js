@@ -17,7 +17,7 @@ const Carousel = ({ images }) => {
   }
   return (
     //fetch from server?
-    <div className = "carousel"> 
+    <div className = "carousel" style={{ display: 'block', width: 900, padding: 30 }}> 
       <img
         key={index}
         src={images[index]}

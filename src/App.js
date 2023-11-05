@@ -9,8 +9,11 @@ function App() {
     <div className="App">
       <header className="App-header">
         <NavBar />
-        <Carousel />
       </header>
+      <div className="mainWrapper">
+        <Carousel />
+      </div>
+      
     </div>
   );
 }
