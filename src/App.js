@@ -1,6 +1,6 @@
 import NavBar from "./components/NavBar";
 import Carousel from "./components/Carousel"
-// const images =["../img/tester.png","../img/tester.png"];
+import { Route, Switch } from 'react-router-dom';
 
 function App() {
   
@@ -12,6 +12,11 @@ function App() {
       </header>
       <div className="mainWrapper">
         <Carousel />
+        {/* <Switch>
+        <Route path='/' component={Home} exact />
+        <Route path='/aboutus' component={About} />
+        <Route component={Error} />
+        </Switch> */}
       </div>
       
     </div>
