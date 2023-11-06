@@ -1,6 +1,8 @@
 import NavBar from "./components/NavBar";
 import Carousel from "./components/Carousel"
 import { Route, Switch } from 'react-router-dom';
+import Reviews from "../src/components/Reviews"
+import Footer from "../src/components/Footer"
 
 function App() {
   
@@ -8,7 +10,7 @@ function App() {
     
     <div className="App">
       <header className="App-header">
-        <NavBar />
+        <NavBar/>
       </header>
       <div className="mainWrapper">
         <Carousel />
@@ -17,6 +19,8 @@ function App() {
         <Route path='/aboutus' component={About} />
         <Route component={Error} />
         </Switch> */}
+        <Reviews/>
+        <Footer/>
       </div>
       
     </div>
