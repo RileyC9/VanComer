@@ -31,8 +31,8 @@ function CarouselComponent() {
   const [index, setIndex] = useState(0);
   const hadnleDotClick = (selectedIndex) => setIndex(selectedIndex);
   return (
-    <div className='carouselComponent' style={{ display: 'block', width: '80%', padding: 30, margin:'auto', border: "rgba(255,255,255,0), solid, 2px", borderRadius: "20px"}}>
-      <Carousel activeIndex={index} onSelect={hadnleDotClick} fade>
+    // <div className='carouselComponent' style={{ display: 'block', width: '80%', padding: 30, margin:'5.5rem auto', border: "rgba(255,255,255,0), solid, 2px", borderRadius: "20px"}}>
+      <Carousel style={{margin:"5.5rem auto" }}activeIndex={index} onSelect={hadnleDotClick} fade>
       {images.map((slide) => {
         return (
           <Carousel.Item interval={5000}>
@@ -53,7 +53,7 @@ function CarouselComponent() {
           )
         })}
       </Carousel>
-    </div>
+    // </div>
     
   )
 }
