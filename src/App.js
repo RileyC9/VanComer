@@ -1,28 +1,49 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { useState } from 'react';
 import NavBar from "./components/NavBar";
-import Carousel from "./components/Carousel"
-import { Route, Switch } from 'react-router-dom';
-import Reviews from "../src/components/Reviews"
-import Footer from "../src/components/Footer"
+import Footer from "../src/components/Footer";
+import SignUp from "./components/accounts/SignUp";
+import Login from "./components/accounts/Login";
+import Home from './components/pages/Home';
+import Error from './components/pages/Error';
 
 function App() {
-  
+  // const [states, setStates] = useState({
+  //   signUpPopDisplay: false
+  // })
+  const [signUpShow, setSignUpShow] = useState(false);
+  const [logInShow, setLogInShow] = useState(false);
+  const handleSignUpShow = () => setSignUpShow(true);
+  const handleSignUpClose = () => setSignUpShow(false);
+  const handleLogInShow = () => setLogInShow(true);
+  const handleLogInClose = () => setLogInShow(false);
+  // localStorage.setItem('states', JSON.stringify(states));
   return (
-    
     <div className="App">
       <header className="App-header">
-        <NavBar/>
+        <NavBar 
+        handleSignUpShow={handleSignUpShow}
+        handleLogInShow={handleLogInShow}/>
       </header>
-      <div className="mainWrapper">
-        <Carousel />
-        {/* <Switch>
-        <Route path='/' component={Home} exact />
-        <Route path='/aboutus' component={About} />
-        <Route component={Error} />
-        </Switch> */}
-        <Reviews/>
-        <Footer/>
-      </div>
-      
+        <SignUp 
+        signUpShow= {signUpShow}
+        setSignUpShow = {setSignUpShow}
+        handleSignUpClose={handleSignUpClose}/>
+        <Login 
+        logInShow= {logInShow}
+        setLogInShow = {setLogInShow}
+        handleLogInClose={handleLogInClose}/>
+      {/* <Home /> */}
+        {/* <BrowserRouter> */}
+        <div className="mainWrapper">
+          <Routes>
+            <Route path='/' element={<Home />} exact />
+            {/* <Route path='/aboutus' component={About} /> */}
+            <Route path='*' element={<Error />} />
+          </Routes>
+        </div>
+        {/* </BrowserRouter> */}
+      <Footer/>
     </div>
   );
 }
