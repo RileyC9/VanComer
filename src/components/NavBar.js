@@ -4,7 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 // import NavDropdown from 'react-bootstrap/NavDropdown';
 
-function NavBar() {
+function NavBar(props) {
   return (
     <Navbar fixed="top" expand="lg" className="bg-body-tertiary">
       <Container>
@@ -32,7 +32,16 @@ function NavBar() {
               </NavDropdown.Item>
             </NavDropdown> */}
           </Nav>
-          <Button variant="outline-primary">Login</Button>{' '}
+          <Button 
+          variant="outline-primary" 
+          onClick={props.handleSignUpShow}>
+            Sign Up
+          </Button>&nbsp;
+          <Button 
+          variant="outline-primary" 
+          onClick={props.handleLogInShow}>
+            Login
+          </Button>{' '}
         </Navbar.Collapse>
       </Container>
     </Navbar>
