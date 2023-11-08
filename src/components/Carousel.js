@@ -1,9 +1,12 @@
 import Carousel from 'react-bootstrap/Carousel';
 import { useState } from 'react';
 import { Link } from "react-router-dom";
+// import {uuid} from 'uuid';
+const uuid = require('uuid');
 
 const images = [
   {
+    id: uuid.v4(),
     image: require("./../img/vancouverBanner1024.jpg"),
     alt: "VancouverBanner",
     header: "Welcome to Vancouver!" ,
@@ -12,6 +15,7 @@ const images = [
   }
   ,
   {
+    id: uuid.v4(),
     image: require("./../img/TransportBanner1024.png"),
     alt: "tester2",
     header: "Boost start your Vancouver experience with us!",
@@ -20,6 +24,7 @@ const images = [
   }
   ,
   {
+    id: uuid.v4(),
     image:require("./../img/UnitedBanner1024.png"),
     alt: "Join Us as a job seeker",
     header: "Do you want to contribute to your community?",
@@ -35,7 +40,7 @@ function CarouselComponent() {
       <Carousel style={{margin:"5.5rem auto" }}activeIndex={index} onSelect={hadnleDotClick} fade>
       {images.map((slide) => {
         return (
-          <Carousel.Item interval={5000}>
+          <Carousel.Item interval={5000} key={slide.id}>
             <img 
             className= "d-block w-100"
             src = {slide.image}

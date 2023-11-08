@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { useState } from 'react';
 import NavBar from "./components/NavBar";
 import Footer from "../src/components/Footer";
@@ -6,6 +6,7 @@ import SignUp from "./components/accounts/SignUp";
 import Login from "./components/accounts/Login";
 import Home from './components/pages/Home';
 import Error from './components/pages/Error';
+// import ClientPage from "./components/ClientPage"
 
 function App() {
   // const [states, setStates] = useState({
@@ -39,6 +40,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />} exact />
             {/* <Route path='/aboutus' component={About} /> */}
+            {/* <Route path='/clientpage' component={ClientPage} /> */}
             <Route path='*' element={<Error />} />
           </Routes>
         </div>
