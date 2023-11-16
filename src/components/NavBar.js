@@ -34,7 +34,7 @@ function NavBar(props) {
           </Nav>
           <Button 
           variant="outline-primary" 
-          onClick={props.handleSignUpShow}>
+          onClick={props.handleRoleShow}>
             Sign Up
           </Button>&nbsp;
           <Button 
