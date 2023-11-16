@@ -6,12 +6,29 @@ import SignUp from "./components/accounts/SignUp";
 import Login from "./components/accounts/Login";
 import Home from './components/pages/Home';
 import Error from './components/pages/Error';
+import RoleSelectionPop from './components/accounts/RoleSelectionPop';
 // import ClientPage from "./components/ClientPage"
 
 function App() {
   // const [states, setStates] = useState({
   //   signUpPopDisplay: false
   // })
+  const [role, setRole] = useState();
+  const [roleShow, setRoleShow] = useState(false);
+  const handleRoleShow = () => setRoleShow(true);
+  const handleRoleShowClose = () => setRoleShow(false);
+  const handleRoleSelection = () => {
+    setRole("client");
+    handleSignUpShow()
+    handleRoleShowClose();
+  };
+  
+  const handleJobSeekerRoleSelection = () => {
+    setRole("JobSeeker");
+    handleSignUpShow();/*change to job seeker signup pop later*/ 
+    handleRoleShowClose()
+  };
+
   const [signUpShow, setSignUpShow] = useState(false);
   const [logInShow, setLogInShow] = useState(false);
   const handleSignUpShow = () => setSignUpShow(true);
@@ -23,17 +40,22 @@ function App() {
     <div className="App">
       <header className="App-header">
         <NavBar 
-        handleSignUpShow={handleSignUpShow}
+        handleRoleShow={handleRoleShow}
         handleLogInShow={handleLogInShow}/>
       </header>
-        <SignUp 
-        signUpShow= {signUpShow}
-        setSignUpShow = {setSignUpShow}
-        handleSignUpClose={handleSignUpClose}/>
-        <Login 
-        logInShow= {logInShow}
-        setLogInShow = {setLogInShow}
-        handleLogInClose={handleLogInClose}/>
+      <RoleSelectionPop 
+      roleShow = {roleShow}
+      handleRoleShowClose = {handleRoleShowClose}
+      handleRoleSelection = {handleRoleSelection}
+      handleJobSeekerRoleSelection = {handleJobSeekerRoleSelection}/>
+      <SignUp 
+      signUpShow= {signUpShow}
+      setSignUpShow = {setSignUpShow}
+      handleSignUpClose={handleSignUpClose}/>
+      <Login 
+      logInShow= {logInShow}
+      setLogInShow = {setLogInShow}
+      handleLogInClose={handleLogInClose}/>
       {/* <Home /> */}
         {/* <BrowserRouter> */}
         <div className="mainWrapper">
