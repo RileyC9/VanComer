@@ -1,25 +1,41 @@
 
 import Form from './Form';
+import { useState } from "react";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 
-function Modal (props){
-
+function FormModal (props){
+    const [show, setShow] = useState(false);
     
-    function cancelHandler() {
-        props.onCancel();
-      }
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
-    return(
-    <div className='modal'>
+    const handleFormSubmit = (formData)=>{
+        props.onFormSubmit(formData);
+        handleClose();
+    }
+    
 
-        <h1>From</h1>
-        < Form />
+     return(
 
-      <button className='btn btn--alt' onClick={cancelHandler}>
-        Cancel
-      </button>
-    </div>
-    );
-}
+    <>
+    <Button variant="primary" onClick={handleShow}>
+      Add task
+    </Button>
 
-export default Modal;
+    <Modal show={show} onHide={handleClose}>
+      <Modal.Header closeButton>
+        <Modal.Title>FORM: New Task</Modal.Title>
+      </Modal.Header>
+      <Modal.Body> <Form onFormSubmit={handleFormSubmit} /> </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={handleClose}>
+          Close
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  </>
+)};
+
+export default FormModal;
