@@ -1,59 +1,90 @@
-import{useRef} from 'react';
-function Form(props){
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
 
-    const titleInputRef = useRef();
-    const dateInputRef = useRef();
-    const addressInputRef = useRef();
-    const descriptionInputRef = useRef();
+function form(props){
+
 
 
     function submitHandler(event){
         event.preventDefault();
-        const enteredTitle = titleInputRef.current.value;
-        const enteredDate = titleInputRef.current.value;
-        const enteredAddress = titleInputRef.current.value;
-        const enteredDescription = titleInputRef.current.value;
+        const enteredTaskName = event.target.elements.formGridTitle.value;
 
         const formData = {
-            id:1,
-            title:enteredTitle,
-            date:enteredDate,
-            address:enteredAddress,
-            description:enteredDescription
-    
-        };
+           taskName:enteredTaskName,
+         };
 
-        console.log(formData)
-        
+         props.onFormSubmit(formData);
+    
     }
+
+       
+        
+    
 
     
     return(
     <form className='form' onSubmit={submitHandler}>
 
-        <div className='control'>
-        <label>Job Title:</label>
-        <input type="text" required id="title" ref={titleInputRef}/>
-        </div>
-        <div className='control'>
-        <label className="formInfo">date:</label>
-        <input type="date" required id="date" ref={dateInputRef} />
-        </div>
-        <div className='control'>
-        <label className="formInfo">location:</label>
-        <input type="text" required id="location" ref={addressInputRef} />
-        </div>
-        <div className='control'>
-        <label className="formInfo">description:</label>
-        <textarea required row="5" ref={descriptionInputRef}></textarea>
-        </div>
+<Row className="mb-3">
+        <Form.Group as={Col} controlId="formGridTitle">
+          <Form.Label>Task name</Form.Label>
+          <Form.Control type="text" placeholder="Enter task name" />
+        </Form.Group>
+      </Row>
+        <Row className="mb-3">
+        <Form.Group as={Col} controlId="formGridFirstName">
+          <Form.Label>First name</Form.Label>
+          <Form.Control type="text" placeholder="Enter frist name" />
+        </Form.Group>
 
-        <div className='actions'>
-            <button>submit</button>
-        </div>
+        <Form.Group as={Col} controlId="formGridLastName">
+          <Form.Label>Last name </Form.Label>
+          <Form.Control type="text" placeholder="Enter last name" />
+        </Form.Group>
+      </Row>
+      
+    <Row className="mb-3">
+    <Form.Group as={Col} controlId="formGridDate">
+    <Form.Label>Date:</Form.Label>
+    <Form.Control type="date" />
+    </Form.Group>
+        
+    </Row>
+      <Form.Group className="mb-3" controlId="formGridAddress1">
+        <Form.Label>Address</Form.Label>
+        <Form.Control placeholder="1234 Main St" />
+      </Form.Group>
+
+      <Form.Group as={Col} controlId="formGridCategories">
+          <Form.Label>categories</Form.Label>
+          <Form.Select defaultValue="Choose...">
+            <option>Housing</option>
+            <option>Transportation</option>
+            <option>Education</option>
+            <option>Employment</option>
+            <option>Socializing</option>
+            <option>General Task</option>
+          </Form.Select>
+        </Form.Group>
+        
+
+        
+      <Form.Group className="mb-3" controlId="Description">
+        <Form.Label>Description</Form.Label>
+        <Form.Control as="textarea" rows={3} />
+      </Form.Group>
+      
+     
+
+      <Button variant="primary" type="submit">
+        Submit
+      </Button>
+
        
         </form>
-    );
-}
+)};
 
-export default Form;
+
+export default form;
