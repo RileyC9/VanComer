@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const albums = require('../../Albums');
-const uuid = require('uuid');
+const users = require
+// const albums = require('../../Albums');
+// const uuid = require('uuid');
 
 /**
  * @route GET api/albums
