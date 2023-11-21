@@ -2,7 +2,8 @@ import { Route, Routes } from 'react-router-dom';
 import { useState } from 'react';
 import NavBar from "./components/NavBar";
 import Footer from "../src/components/Footer";
-import SignUp from "./components/accounts/SignUp";
+import ClientSignUp from "./components/accounts/SignUp";
+import JobSeekerSignUp from "./components/accounts/JobSeekerSignUP";
 import Login from "./components/accounts/Login";
 import Home from './components/pages/Home';
 import Error from './components/pages/Error';
@@ -48,10 +49,13 @@ function App() {
       handleRoleShowClose = {handleRoleShowClose}
       handleRoleSelection = {handleRoleSelection}
       handleJobSeekerRoleSelection = {handleJobSeekerRoleSelection}/>
-      <SignUp 
+      {(role == "client"? <ClientSignUp 
       signUpShow= {signUpShow}
       setSignUpShow = {setSignUpShow}
-      handleSignUpClose={handleSignUpClose}/>
+      handleSignUpClose={handleSignUpClose}/> : <JobSeekerSignUp 
+      signUpShow= {signUpShow}
+      setSignUpShow = {setSignUpShow}
+      handleSignUpClose={handleSignUpClose}/>)}
       <Login 
       logInShow= {logInShow}
       setLogInShow = {setLogInShow}
