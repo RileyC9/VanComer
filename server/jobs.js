@@ -97,8 +97,7 @@ const jobs = [
     jobDate: "2022-10-19",
     postCreated: "2022-10-15",
     applicants:[
-      {id:3,price:50},
-      {id:4,price:70}],
+      {id:3,price:50}],
     status: "searching"
   },
 ];

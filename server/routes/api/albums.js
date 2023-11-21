@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const users = require
+const users = require('../../Users');
+const jobs = require('../../jobs');
 // const albums = require('../../Albums');
 // const uuid = require('uuid');
 
