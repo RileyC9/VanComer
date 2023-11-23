@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Col, Button, Row, Container, Card, Form, Modal } from 'react-bootstrap';
+import axios from "axios";
 
 export default function SignUp (props) {
   // const [show, setShow] = useState(false);
@@ -7,6 +8,9 @@ export default function SignUp (props) {
   const [lastName, setLastName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [role, setRole] = useState();
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [error, setError] = useState(false);
   var passwordCheckDisplay = "Notice: Password must be at least 10 characters, with at least one of each of capital letter, lowercase letter, number, and sign.";
   // password Validation
   // const handleShow = () => setShow(true);
@@ -17,6 +21,22 @@ export default function SignUp (props) {
   //     setShow(JSON.parse(localStorage.getItem('state')).signUpPopDisplay);
   //   }
   // },[])
+  const submitHandling = () => {
+    const newUser = {
+      firstName: firstName,
+      lastName: lastName,
+      role: role,
+      email: email,
+      password: password
+    }
+    axios.post('http://localhost:3500/api/user/', {newUser}).then ((repos) => {
+      if (repos.result == "success") {
+        setLoggedIn(true);
+      } else {
+        setError(true);
+      }
+    })
+  };
   return (
     <>
       <Modal show={props.signUpShow} onHide={props.handleSignUpClose}>
@@ -62,6 +82,11 @@ export default function SignUp (props) {
               type="email"
               placeholder='johnsmith123@example.com' 
               onChange={(e)=>setEmail(e.target.value)}/>
+              {(error? <Form.Text className = "text-muted">
+                We will never share your email with anyone else.
+              </Form.Text>: <Form.Text className = "text-muted">
+                This email already exist.
+              </Form.Text>)}
               <Form.Text className = "text-muted">
                 We will never share your email with anyone else.
               </Form.Text>
@@ -80,7 +105,7 @@ export default function SignUp (props) {
                 <Form.Label>Confirm Password</Form.Label>
                 <Form.Control type="password" placeholder="Re-enter your Password" />
               </Form.Group>
-              <Button variant="primary" type="submit">
+              <Button variant="primary" type="submit" onClick={submitHandling}>
                 Submit
               </Button>
             </Form>
