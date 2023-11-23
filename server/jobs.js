@@ -10,6 +10,7 @@ const jobs = [
     applicants:[
       {id:3,price:250},
       {id:4,price:300}],
+    jobProvider: undefined,
     status: "searching"
   },
   {
@@ -22,6 +23,7 @@ const jobs = [
     postCreated: "2022-07-15",
     applicants:[
       {id:5,price:10}],
+    jobProvider: 5,
     status: "completed"
   },
   {
@@ -35,6 +37,7 @@ const jobs = [
     applicants:[
       {id:3,price:80},
       {id:4,price:130}],
+    jobProvider: 3,
     status: "completed"
   },
   {
@@ -48,6 +51,7 @@ const jobs = [
     applicants:[
       {id:3,price:50},
       {id:4,price:70}],
+    jobProvider: 3,
     status: "searching"
   },
   {
@@ -60,6 +64,7 @@ const jobs = [
     postCreated: "2022-09-01",
     applicants:[
       {id:5,price:50}],
+    jobProvider: 5,
     status: "completed"
   },
   {
@@ -73,6 +78,7 @@ const jobs = [
     applicants:[
       {id:3,price:75},
       {id:4,price:90}],
+    jobProvider: undefined,
     status: "searching"
   },
   {
@@ -86,6 +92,7 @@ const jobs = [
     applicants:[
       {id:3,price:120},
       {id:4,price:170}],
+    jobProvider: undefined,
     status: "searching"
   },
   {
@@ -98,6 +105,8 @@ const jobs = [
     postCreated: "2022-10-15",
     applicants:[
       {id:3,price:50}],
+    jobProvider: undefined,
     status: "searching"
   },
-];
+]
+module.exports = jobs;
