@@ -1,36 +1,84 @@
+
+import { useEffect,useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 
-function form(props){
+function UserForm(props){
+    // function submitHandler(event){
+    //     event.preventDefault();
+    //     const enteredTaskName = event.target.elements.formGridTitle.value;
+
+    //     const formData = {
+    //        taskName:enteredTaskName,
+    //      };
+
+    //      props.onFormSubmit(formData);
+
+   
+        const[formData, setFormData] = useState({
+            taskName:"",
+            firstName: "",
+            lastName:"",
+            date:"",
+            address:"",
+            categories:"",
+            description:""
+        });
+
+        useEffect(() =>{
+            const storedData = JSON.parse(localStorage.getItem('userData'));
+            if(storedData && storedData.taskName){
+                setFormData((prevData)=>({
+                    ...prevData,
+                    taskName:storedData.taskName,
+                }))
+            }
+        },[]);
+
+        // useEffect(()=>{
+        //     localStorage.setItem('userData',JSON.stringify(formData));
+        // },[formData])
+
+    
+    const changeHandler = (event)=>{
+        const {name,value} = event.target;
+        setFormData((prevData)=> ({
+            ...prevData,
+            [name]:value,
+        }))
+    };
 
 
-
-    function submitHandler(event){
+    const submitHandler = (event) => {
         event.preventDefault();
         const enteredTaskName = event.target.elements.formGridTitle.value;
 
-        const formData = {
-           taskName:enteredTaskName,
-         };
-
-         props.onFormSubmit(formData);
-    
-    }
-
-       
+      
+        localStorage.setItem('userData',JSON.stringify({taskName:enteredTaskName}));
         
-    
+        setFormData((prevData)=> ({
+            ...prevData,
+            taskName:enteredTaskName,
+        }));
 
-    
+        props.onFormSubmit({taskName:enteredTaskName});
+    }
+ 
     return(
     <form className='form' onSubmit={submitHandler}>
 
 <Row className="mb-3">
         <Form.Group as={Col} controlId="formGridTitle">
           <Form.Label>Task name</Form.Label>
-          <Form.Control type="text" placeholder="Enter task name" />
+          <Form.Control 
+          type="text" 
+          placeholder="Enter task name"
+          name= "taskName"
+          value={formData.taskName}
+          onChange={changeHandler}
+           />
         </Form.Group>
       </Row>
         <Row className="mb-3">
@@ -84,7 +132,8 @@ function form(props){
 
        
         </form>
-)};
+    );
+}
 
 
-export default form;
+export default UserForm;
