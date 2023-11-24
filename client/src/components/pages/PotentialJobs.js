@@ -19,8 +19,8 @@ function PotentialJobs(props){
 
 <h2 className="mx-auto">Job Seeker Page</h2>
 
-<div class="row">
-  <div class="col-sm-6">
+<div className="row">
+  <div className="col-sm-6">
   <Card border="primary" style={{ width: '30rem' }}>
         <Card.Header>Active Tasks</Card.Header>
         <Card.Body>
@@ -50,7 +50,7 @@ function PotentialJobs(props){
       </div> 
   </div>
       </div>
-  <div class="col-sm-6">
+  <div className="col-sm-6">
   <Card border="danger" style={{ width: '30rem' }}>
         <Card.Header>Historic Tasks</Card.Header>
         <Card.Body>
