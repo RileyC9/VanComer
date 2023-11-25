@@ -1,21 +1,23 @@
 import { Route, Routes } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import NavBar from "./components/NavBar";
 import Footer from "../src/components/Footer";
 import ClientSignUp from "./components/accounts/SignUp";
 import JobSeekerSignUp from "./components/accounts/JobSeekerSignUP";
 import Login from "./components/accounts/Login";
+import LoggedIn from "./components/pages/LoggedIn"
 import Home from './components/pages/Home';
 import Error from './components/pages/Error';
 import RoleSelectionPop from './components/accounts/RoleSelectionPop';
-// import ClientPage from "./components/ClientPage"
+
 
 function App() {
-  // const [states, setStates] = useState({
-  //   signUpPopDisplay: false
-  // })
+  // This is the Login, roleSelection, and signUp pops appearing and closing handler. Feel free to optimise it.
   const [role, setRole] = useState();
+  const [signUpShow, setSignUpShow] = useState(false);
+  const [logInShow, setLogInShow] = useState(false);
   const [roleShow, setRoleShow] = useState(false);
+
   const handleRoleShow = () => setRoleShow(true);
   const handleRoleShowClose = () => setRoleShow(false);
   const handleRoleSelection = () => {
@@ -23,20 +25,24 @@ function App() {
     handleSignUpShow()
     handleRoleShowClose();
   };
-  
   const handleJobSeekerRoleSelection = () => {
     setRole("JobSeeker");
     handleSignUpShow();/*change to job seeker signup pop later*/ 
     handleRoleShowClose()
   };
-
-  const [signUpShow, setSignUpShow] = useState(false);
-  const [logInShow, setLogInShow] = useState(false);
   const handleSignUpShow = () => setSignUpShow(true);
   const handleSignUpClose = () => setSignUpShow(false);
   const handleLogInShow = () => setLogInShow(true);
   const handleLogInClose = () => setLogInShow(false);
-  // localStorage.setItem('states', JSON.stringify(states));
+  // Maybe not useful. Just another way to do the pops appearance logic in my head.
+useEffect(() => {
+  let appState = {
+    roleShow: roleShow,
+    signUpShow: signUpShow,
+    logInShow: logInShow
+  }
+  localStorage.setItem('appState', JSON.stringify(appState));
+});
   return (
     <div className="App">
       <header className="App-header">
@@ -49,7 +55,7 @@ function App() {
       handleRoleShowClose = {handleRoleShowClose}
       handleRoleSelection = {handleRoleSelection}
       handleJobSeekerRoleSelection = {handleJobSeekerRoleSelection}/>
-      {(role == "client"? <ClientSignUp 
+      {(role === "client"? <ClientSignUp 
       signUpShow= {signUpShow}
       setSignUpShow = {setSignUpShow}
       handleSignUpClose={handleSignUpClose}/> : <JobSeekerSignUp 
@@ -60,17 +66,17 @@ function App() {
       logInShow= {logInShow}
       setLogInShow = {setLogInShow}
       handleLogInClose={handleLogInClose}/>
-      {/* <Home /> */}
-        {/* <BrowserRouter> */}
+      {/* Main display routes */}
+      {/* Please follow this format because we are using a newer version of react-router-dom */}
         <div className="mainWrapper">
+          
           <Routes>
             <Route path='/' element={<Home />} exact />
             {/* <Route path='/aboutus' component={About} /> */}
-            {/* <Route path='/clientpage' component={ClientPage} /> */}
+            <Route path='/login' element={<LoggedIn />} />
             <Route path='*' element={<Error />} />
           </Routes>
         </div>
-        {/* </BrowserRouter> */}
       <Footer/>
     </div>
   );

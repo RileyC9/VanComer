@@ -1,22 +1,55 @@
 import { useState, useEffect } from 'react';
 import { Col, Button, Row, Container, Card, Form, Modal } from 'react-bootstrap';
-
+import axios from 'axios';
+// MISSING  AREAOFINTEREST CHECKBOX LOGIC
 export default function SignUp (props) {
-  // const [show, setShow] = useState(false);
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const role = "job Seeker";
+  const [aOI, setAOI] = useState();
+  const [error, setError] = useState(false);
   var passwordCheckDisplay = "Notice: Password must be at least 10 characters, with at least one of each of capital letter, lowercase letter, number, and sign.";
   // password Validation
-  // const handleShow = () => setShow(true);
-  // const handleClose = () => setShow(false);
 
-  // useEffect(()=> {
-  //   if (localStorage.getItem('states')) {
-  //     setShow(JSON.parse(localStorage.getItem('state')).signUpPopDisplay);
-  //   }
-  // },[])
+  // handling submit
+  const submitHandling = (e) => {
+    e.preventDefault();
+    const newUser = {
+      action: "signup",
+      firstName: firstName,
+      lastName: lastName,
+      role: role,
+      email: email,
+      password: password,
+      areaOfInterest: aOI
+
+    }
+    axios.post('http://localhost:3500/api/user/', newUser).then ((repos) => {
+      if (repos.data.result === "success") {
+        const user = {
+          action: "signup",
+          userId: repos.data.clientId,
+          firstName: repos.data.firstName,
+          lastName: repos.data.lastName,
+          role: repos.data.role,
+          areaOfInterest: repos.data.areaOfInterest
+        };
+        console.log(user);
+        localStorage.setItem('user', JSON.stringify(user));
+        // setError(false);
+        props.handleSignUpClose();
+        // redirect()
+      } else {
+        setError(true);
+      }
+    })
+  };
+  // causing a re-render in the modal
+  useEffect(() => {
+  },[error]);
+
   return (
     <>
       <Modal show={props.signUpShow} onHide={props.handleSignUpClose}>
@@ -94,7 +127,8 @@ export default function SignUp (props) {
                 <Form.Check class="form-check-input" id="generalTasksOption" 
                 label={'General Tasks'}/>
               </Form.Group>
-              <Button variant="primary" type="submit">
+              <Button variant="primary" type="submit"
+              onClick={submitHandling}>
                 Submit
               </Button>
             </Form>

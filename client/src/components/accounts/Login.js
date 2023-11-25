@@ -1,25 +1,50 @@
-import { useState, useEffect } from 'react';
-import { Col, Button, Row, Container, Card, Form, Modal } from 'react-bootstrap';
+import { useState } from 'react';
+import { Button, Form, Modal } from 'react-bootstrap';
 import axios from "axios";
+import { redirect } from 'react-router-dom';
 
 export default function SignUp (props) {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [message, setMessage] = useState();
-  const [user,setUser] = useState();
-  const handleLogin = () => {
+
+  const handleLogin = (e) => {
+    e.preventDefault();
     const userLoginInfo = {
+      action: "login",
       email: email,
       password: password
     };
-    axios.get("http://localhost:3500/api/user/", {userLoginInfo}).then((repos) => {
-      if (repos.role == "null") {
-        setMessage("Invalid email or password");
+    axios.post("http://localhost:3500/api/user/", userLoginInfo).then((repos) => {
+      if (repos.data.role === "null") {
+        console.log(repos.data.role);
+      } else if (repos.data.role === "client") {
+        console.log(repos.data.role);
+        const userFound = {
+          userId: repos.data.clientId,
+          firstName: repos.data.firstName,
+          lastName: repos.data.lastName,
+          role: repos.data.role
+        }
+        localStorage.setItem('user',JSON.stringify(userFound));
+        
+        props.handleLogInClose();
+        redirect("/login");
       } else {
-        setUser(repos.user);
+        console.log(repos.data.role);
+        const userFound = {
+          userId: repos.data.clientId,
+          firstName: repos.data.firstName,
+          lastName: repos.data.lastName,
+          role: repos.data.role,
+          areaOfInterest: repos.data.areaOfInterest
+        }
+        localStorage.setItem('user',JSON.stringify(userFound));
+        
+        props.handleLogInClose();
+        redirect("/login");
       }
     });
-  }
+  };
   return (
     <>
       <Modal show={props.logInShow} onHide={props.handleLogInClose}>

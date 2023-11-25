@@ -7,6 +7,9 @@ import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  /* Main display routes */
+  /* Please follow this format because we are using a newer version of react-router-dom */
+  // For the React.StrictMode wrap, I don't know if it is necessary amd what it does.
   <React.StrictMode>
     <BrowserRouter>
       <App />

@@ -3,19 +3,16 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
+import axios from "axios";
 
 function UserForm(props){
     // function submitHandler(event){
     //     event.preventDefault();
     //     const enteredTaskName = event.target.elements.formGridTitle.value;
-
     //     const formData = {
     //        taskName:enteredTaskName,
     //      };
-
     //      props.onFormSubmit(formData);
-
-   
         const[formData, setFormData] = useState({
             taskName:"",
             firstName: "",
@@ -55,20 +52,20 @@ function UserForm(props){
         const enteredTaskName = event.target.elements.formGridTitle.value;
 
       
-        localStorage.setItem('userData',JSON.stringify({taskName:enteredTaskName}));
+        // localStorage.setItem('userData',JSON.stringify({taskName:enteredTaskName}));
         
-        setFormData((prevData)=> ({
-            ...prevData,
-            taskName:enteredTaskName,
-        }));
+        // setFormData((prevData)=> ({
+        //     ...prevData,
+        //     taskName:enteredTaskName,
+        // }));
 
-        props.onFormSubmit({taskName:enteredTaskName});
+        // props.onFormSubmit({taskName:enteredTaskName});
     }
  
     return(
     <form className='form' onSubmit={submitHandler}>
 
-<Row className="mb-3">
+      <Row className="mb-3">
         <Form.Group as={Col} controlId="formGridTitle">
           <Form.Label>Task name</Form.Label>
           <Form.Control 
@@ -77,28 +74,25 @@ function UserForm(props){
           name= "taskName"
           value={formData.taskName}
           onChange={changeHandler}
-           />
+          />
         </Form.Group>
       </Row>
-        <Row className="mb-3">
+      <Row className="mb-3">
         <Form.Group as={Col} controlId="formGridFirstName">
           <Form.Label>First name</Form.Label>
           <Form.Control type="text" placeholder="Enter frist name" />
         </Form.Group>
-
         <Form.Group as={Col} controlId="formGridLastName">
           <Form.Label>Last name </Form.Label>
           <Form.Control type="text" placeholder="Enter last name" />
         </Form.Group>
       </Row>
-      
-    <Row className="mb-3">
-    <Form.Group as={Col} controlId="formGridDate">
-    <Form.Label>Date:</Form.Label>
-    <Form.Control type="date" />
-    </Form.Group>
-        
-    </Row>
+      <Row className="mb-3">
+        <Form.Group as={Col} controlId="formGridDate">
+          <Form.Label>Date:</Form.Label>
+          <Form.Control type="date" />
+        </Form.Group>
+      </Row>
       <Form.Group className="mb-3" controlId="formGridAddress1">
         <Form.Label>Address</Form.Label>
         <Form.Control placeholder="1234 Main St" />

@@ -5,6 +5,7 @@ import { Image, Modal } from 'react-bootstrap';
 export default function SignUp (props) {
   const newComerImg = require('./../../img/newComer320.jpg');
   const communityImg = require('./../../img/community320.jpg');
+
   return (
     <>
       <Modal show={props.roleShow} onHide={props.handleRoleShowClose} size="lg">
