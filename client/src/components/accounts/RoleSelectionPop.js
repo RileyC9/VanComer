@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { Image, Modal } from 'react-bootstrap';
 // import '../../App.css';
 

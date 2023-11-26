@@ -8,6 +8,7 @@ export default function ClientPage () {
   const [activeTasks,setActiveTasks] = useState([]);
   const[selectedTasks,setSelectedTasks] = useState([]);
   const [ historicTasks,setHistoricTasks] = useState([]);
+  const [check, setCheck] = useState(false);
 // fetch the data from server and store all the jobpost related to this user id in jobPosts, and localStorage (key: 'jobPosts')
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -15,6 +16,7 @@ export default function ClientPage () {
     axios.get('http://localhost:3500/api/jobs/' + userId).then((repos) => {
       let jobPosts = repos.data;
       localStorage.setItem('jobPosts', JSON.stringify(jobPosts));
+      setCheck(true);
     });
   },[]);
 
@@ -34,7 +36,7 @@ export default function ClientPage () {
     }
   }
   return (
-    <div className="card">
+    (check?<div className="card">
       <h2 className="mx-auto">Client Page</h2>
       <div className="actions">
         <div className="w-50 p-3 d-inlineBlock">
@@ -47,6 +49,6 @@ export default function ClientPage () {
         <FormModal onFormSubmit={handleFormSubmit}/> 
         </div>
       </div>
-    </div>
+    </div>: <></>)
   );
 }

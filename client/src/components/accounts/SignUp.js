@@ -7,6 +7,7 @@ export default function SignUp (props) {
   const [lastName, setLastName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [confirmPw, setConfirmPw] = useState();
   const role = "client";
   const [error, setError] = useState(false);
 
@@ -16,32 +17,34 @@ export default function SignUp (props) {
   // handling submit
   const submitHandling = (e) => {
     e.preventDefault();
-    const newUser = {
-      action: "signup",
-      firstName: firstName,
-      lastName: lastName,
-      role: role,
-      email: email,
-      password: password
-    }
-    axios.post('http://localhost:3500/api/user/', newUser).then ((repos) => {
-      if (repos.data.result === "success") {
-        const user = {
-          action: "signup",
-          userId: repos.data.clientId,
-          firstName: repos.data.firstName,
-          lastName: repos.data.lastName,
-          role: repos.data.role
-        };
-        console.log(user);
-        localStorage.setItem('user', JSON.stringify(user));
-        // setError(false);
-        props.handleSignUpClose();
-        // redirect()
-      } else {
-        setError(true);
+    if (password === confirmPw) {
+      const newUser = {
+        action: "signup",
+        firstName: firstName,
+        lastName: lastName,
+        role: role,
+        email: email,
+        password: password
       }
-    })
+      axios.post('http://localhost:3500/api/user/', newUser).then ((repos) => {
+        if (repos.data.result === "success") {
+          const user = {
+            action: "signup",
+            userId: repos.data.clientId,
+            firstName: repos.data.firstName,
+            lastName: repos.data.lastName,
+            role: repos.data.role
+          };
+          console.log(user);
+          localStorage.setItem('user', JSON.stringify(user));
+          // setError(false);
+          props.handleSignUpClose();
+          window.location.replace("http://localhost:3000/login");
+        } else {
+          setError(true);
+        }
+      })
+    }
   };
   // causing a re-render in the modal
   useEffect(() => {
@@ -110,7 +113,8 @@ export default function SignUp (props) {
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Confirm Password</Form.Label>
-                <Form.Control type="password" placeholder="Re-enter your Password" />
+                <Form.Control type="password" placeholder="Re-enter your Password"
+                onChange={(e) => {setConfirmPw(e.target.value)}} />
               </Form.Group>
               <Button variant="primary" type="submit" onClick={submitHandling}>
                 Submit

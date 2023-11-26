@@ -19,7 +19,8 @@ function App() {
   const [roleShow, setRoleShow] = useState(false);
 
   const handleRoleShow = () => setRoleShow(true);
-  const handleRoleShowClose = () => setRoleShow(false);
+  const handleRoleShowClose = () => {
+    setRoleShow(false)};
   const handleRoleSelection = () => {
     setRole("client");
     handleSignUpShow()

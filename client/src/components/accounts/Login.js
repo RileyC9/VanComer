@@ -28,7 +28,7 @@ export default function SignUp (props) {
         localStorage.setItem('user',JSON.stringify(userFound));
         
         props.handleLogInClose();
-        redirect("/login");
+        window.location.replace("http://localhost:3000/login");
       } else {
         console.log(repos.data.role);
         const userFound = {
@@ -41,7 +41,7 @@ export default function SignUp (props) {
         localStorage.setItem('user',JSON.stringify(userFound));
         
         props.handleLogInClose();
-        redirect("/login");
+        window.location.replace("http://localhost:3000/login");
       }
     });
   };
