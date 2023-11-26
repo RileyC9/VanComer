@@ -2,9 +2,13 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
-// import NavDropdown from 'react-bootstrap/NavDropdown';
+import { useEffect } from 'react';
 
 function NavBar(props) {
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    window.location.replace("http://localhost:3000/");
+  }
   return (
     <Navbar fixed="top" expand="lg" className="bg-body-tertiary">
       <Container>
@@ -32,6 +36,16 @@ function NavBar(props) {
               </NavDropdown.Item>
             </NavDropdown> */}
           </Nav>
+          {localStorage.getItem('user') != null?
+          <>
+            <Button 
+          variant="outline-primary" 
+          onClick={handleLogout}>
+            Log out
+          </Button>
+          </>
+          : 
+          <>
           <Button 
           variant="outline-primary" 
           onClick={props.handleRoleShow}>
@@ -41,7 +55,10 @@ function NavBar(props) {
           variant="outline-primary" 
           onClick={props.handleLogInShow}>
             Login
-          </Button>{' '}
+          </Button>
+          </>
+          }
+      
         </Navbar.Collapse>
       </Container>
     </Navbar>

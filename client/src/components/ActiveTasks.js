@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 function ActiveTask(props){
   const [jobPosts, setJobPosts]= useState([]);
   // filter the job posts that is created by the user and is not completed
+  // async and await???
   useEffect(() => {
     let jobPostsTemp = JSON.parse(localStorage.getItem('jobPosts'));
     setJobPosts(jobPostsTemp.filter((job) => job.status !== "completed"));

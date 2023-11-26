@@ -7,6 +7,7 @@ import PotentialJobs from '../PotentialJobs';
 
 export default function ClientPage () {
   const [activeTasks,setActiveTasks] = useState([]);
+  const [check, setCheck] = useState(false);
   
 // fetch the data from server and store all the jobpost applied by this user id in jobPosts, and localStorage (key: 'JSRelatedJobs')
   const user = JSON.parse(localStorage.getItem('user'));
@@ -20,6 +21,7 @@ export default function ClientPage () {
       const data = repos.data;
       console.log(data);
       localStorage.setItem('JSRelatedJobs', JSON.stringify(data));
+      setCheck(true);
     })
   },[]);
 
@@ -46,7 +48,7 @@ export default function ClientPage () {
     // Maybe set the job post info here then send in the request above???
   }
   return (
-    <div className="card">
+    (check?<div className="card">
       <h2 className="mx-auto">Client Page</h2>
       <div className="actions">
         <div className="w-50 p-3 d-inlineBlock">
@@ -62,6 +64,6 @@ export default function ClientPage () {
         <FormModal onFormSubmit={handleFormSubmit}/> 
         </div>
       </div>
-    </div>
+    </div>:<></>)
   );
 }
