@@ -10,8 +10,8 @@ function NavBar(props) {
     window.location.replace("http://localhost:3000/");
   }
   return (
-    <Navbar fixed="top" expand="lg" className="bg-body-tertiary">
-      <Container>
+    <Navbar sticky="top" expand="lg" className="bg-body-tertiary">
+      <Container fluid>
         <Navbar.Brand href="#home"><img
               src={require("./../img/logo_transparent.png")}
               width="100%"
