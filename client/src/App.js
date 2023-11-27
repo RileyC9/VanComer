@@ -10,6 +10,8 @@ import Home from './components/pages/Home';
 import Error from './components/pages/Error';
 import RoleSelectionPop from './components/accounts/RoleSelectionPop';
 
+import { MDBContainer } from 'mdb-react-ui-kit';
+
 
 function App() {
   // This is the Login, roleSelection, and signUp pops appearing and closing handler. Feel free to optimise it.
@@ -69,7 +71,7 @@ useEffect(() => {
       handleLogInClose={handleLogInClose}/>
       {/* Main display routes */}
       {/* Please follow this format because we are using a newer version of react-router-dom */}
-        <div className="mainWrapper">
+      <MDBContainer fluid>
           
           <Routes>
             <Route path='/' element={<Home />} exact />
@@ -77,7 +79,7 @@ useEffect(() => {
             <Route path='/login' element={<LoggedIn />} />
             <Route path='*' element={<Error />} />
           </Routes>
-        </div>
+          </MDBContainer>
       <Footer/>
     </div>
   );
