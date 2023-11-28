@@ -30,22 +30,26 @@ function MarkAsCompleted(props) {
   const handleShow = () => setShow(true);
 
   function markJobAsCompleted() {
-    const jobId = props.job.jobId;
-    console.log("Job ID:", jobId);
-
-    if (jobId) {
-      axios
-        .put(`http://localhost:3500/api/jobs`, {
-          action: "completeJob",
-          jobId: jobId,
-        })
-        .then((response) => {
-          console.log("Job marked as completed", response);
-          setJobId(response);
-        });
-    }
+    const jobId = props.job._id;
+    console.log("Job ID:", props.job._id);
+    const request = {
+      action: "completeJob",
+      jobId: jobId,
+    };
+    console.log(request);
+    axios
+      .put('http://localhost:3500/api/jobs', request)
+      .then((response) => {
+        console.log("Job marked as completed", response.data);
+        if (response.data.result === "Success") {
+          setShow(false);
+          window.location.reload();
+          console.log(response.data.temp);
+        }
+        
+      });
   }
-
+  useEffect(() => {},[jobId]);
   function getPrice() {
     const matchingApplicant = props.job.applicants.find(
       (applicant) => applicant.id === props.job.jobProvider
