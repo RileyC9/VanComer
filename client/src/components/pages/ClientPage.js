@@ -39,33 +39,29 @@ export default function ClientPage() {
     }
   };
   return check ? (
-    <MDBContainer fluid>
-      <MDBRow className="text-center my-3">
+    <MDBContainer className="gx-4 mt-4" >
+  
+      <MDBRow className="text-center mb-3">
         <MDBCol>
           <h2>Client Page</h2>
         </MDBCol>
       </MDBRow>
-      <MDBRow className="mb-4">
-        <MDBCol></MDBCol>
+      <MDBRow className="mb-5">
         <MDBCol>
           <ActiveTask onCheckboxChange={handleCheckboxChange} />
         </MDBCol>
-        <MDBCol></MDBCol>
       </MDBRow>
-      <MDBRow>
-        <MDBCol></MDBCol>
+      <MDBRow className="mb-4">
         <MDBCol>
-          <Historic />
+          <Historic  />
         </MDBCol>
-        <MDBCol></MDBCol>
       </MDBRow>
       <MDBRow>
-        <MDBCol></MDBCol>
         <MDBCol>
           <FormModal onFormSubmit={handleFormSubmit} />
         </MDBCol>
-        <MDBCol></MDBCol>
       </MDBRow>
+      
     </MDBContainer>
   ) : (
     <></>

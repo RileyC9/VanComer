@@ -1,12 +1,10 @@
-import Card from "react-bootstrap/Card";
-import ListGroup from "react-bootstrap/ListGroup";
-import Form from "react-bootstrap/Form";
 import { useEffect, useState } from "react";
-import Button from "react-bootstrap/Button";
+import MarkAsCompleted from "./MarkAsCompleted";
 
 import React from "react";
 import {
   MDBCard,
+  MDBCardHeader,
   MDBCardBody,
   MDBCardFooter,
   MDBCol,
@@ -15,17 +13,20 @@ import {
   MDBListGroupItem,
   MDBRow,
   MDBBtn,
+  MDBContainer,
+  MDBBadge,
+
 } from "mdb-react-ui-kit";
+import SelectApplicants from "./SelectApplicants";
+
+
 
 // JSON.parse(localStorage.getItem('userData'));
 
 function ActiveTask(props) {
   const [jobPosts, setJobPosts] = useState([]);
-  const [show, setShow] = useState(false);
 
-  //For opening the modals: pending
-  // const handleClose = () => setShow(false);
-  // const handleShow = () => setShow(true);
+
 
   // const [applicants, setApplicants]=useState([]);
 
@@ -44,12 +45,12 @@ function ActiveTask(props) {
 
   return (
     <>
-      <Card style={{ width: "60rem" }}>
-        <Card.Header>Active Tasks</Card.Header>
-        <Card.Body className="px-4 pt-4">
-          <MDBRow>
+      <MDBCard alignment="center">
+        <MDBCardHeader>Active Tasks</MDBCardHeader>
+        <MDBCardBody className="px-4 pt-4">
+          <MDBRow className="row-cols-1 row-cols-md-2 gx-3">
             {jobPosts.map((job, index) => (
-              <MDBCol xl={6} className="mb-4" key={index}>
+              <MDBCol className="mb-4" key={index}>
                 <MDBCard className="h-100">
                   <MDBCardBody>
                     <div className="d-flex justify-content-between align-items-center">
@@ -77,27 +78,24 @@ function ActiveTask(props) {
                     border="0"
                     className="p-2 d-flex justify-content-around"
                   >
-                    <MDBBtn
-                      color="link"
-                      rippleColor="primary"
-                      className="text-reset m-0"
-                    >
-                      Message <MDBIcon fas icon="envelope" />
-                    </MDBBtn>
-                    <MDBBtn
-                      color="link"
-                      rippleColor="primary"
-                      className="text-reset m-0"
-                    >
-                      Call <MDBIcon fas icon="phone" />
-                    </MDBBtn>
+                    {/* Conditionally render the buttons according to unassigned applicants (to select applicant) or in progress status (to mark a task as completed) */}
+                    {job.applicants.length === 0 ? <SelectApplicants  job={job}/>
+                    :<MarkAsCompleted  job={job}/>     
+            }
                   </MDBCardFooter>
                 </MDBCard>
               </MDBCol>
             ))}
+
+
+  
+  
+
+
+
           </MDBRow>
-        </Card.Body>
-      </Card>
+        </MDBCardBody>
+      </MDBCard>
     </>
   );
 }
