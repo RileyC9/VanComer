@@ -5,6 +5,8 @@ import JSJobCompleted from "../JSJobCompleted";
 import FormModal from '../Modal';
 import PotentialJobs from '../PotentialJobs';
 
+import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
+
 export default function ClientPage () {
   const [activeTasks,setActiveTasks] = useState([]);
   const [check, setCheck] = useState(false);
@@ -48,22 +50,33 @@ export default function ClientPage () {
     // Maybe set the job post info here then send in the request above???
   }
   return (
-    (check?<div className="card">
-      <h2 className="mx-auto">Client Page</h2>
-      <div className="actions">
-        <div className="w-50 p-3 d-inlineBlock">
+    check?(<MDBContainer className="gx-4 mt-4" >
+  
+    <MDBRow className="text-center mb-3">
+      <MDBCol>
+        <h2>Job Seeker Page</h2>
+      </MDBCol>
+    </MDBRow>
+    <MDBRow className="mb-5">
+      <MDBCol>
           <PotentialJobs />
-        </div>
-        <div className="w-50 p-3 d-inlineBlock">
+          </MDBCol>
+      </MDBRow>
+      <MDBRow className="mb-4">
+        <MDBCol>
+       
           <JSAppliedJobs onCheckboxChange={handleCheckboxChange}/>
-        </div>
-        <div className="w-50 p-3 d-inlineBlock">
+          </MDBCol>
+          </MDBRow>
+          <MDBRow>
+        <MDBCol>
+        
+      
           <JSJobCompleted />
-        </div>
-        <div>
+          </MDBCol>
+          </MDBRow>
         <FormModal onFormSubmit={handleFormSubmit}/> 
-        </div>
-      </div>
-    </div>:<></>)
+        </MDBContainer>
+    ):(<></>)
   );
 }
