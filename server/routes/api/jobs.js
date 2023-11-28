@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const jobs = require('../../jobs');
+const jobs = require('../../Models/jobsModel');
 let currentJobId = 8;
 
 /**
@@ -10,7 +10,7 @@ let currentJobId = 8;
 router.get('/:userId', async (req, res) => {
   const userId = parseInt(req.params.userId);
   console.log(userId);
-  const targetJobs = jobs.filter((job) => job.clientId === userId);
+  const targetJobs = await jobs.find({clientId: userId});
   console.log(targetJobs);
   return res.json(targetJobs);
 });
@@ -81,7 +81,7 @@ router.post('/', (req,res) => {
  * @route PUT api/jobs/
  * @desc modifying data with update requests
  */
-router.put('/', (req,res) => {
+router.put('/', async (req,res) => {
   /**
   * @desc updating the jobs applicants property with the JobseekerId and the price
   */
@@ -116,14 +116,12 @@ router.put('/', (req,res) => {
     /**
   * @desc updating the status property to completed (For Client)
   */
-    let jobId = req.body.jobId;
-    jobs.map((job) => {
-      if (job.jobId == jobId) {
-        job.status= "completed";
-      }
-      return job;
-    });
-    return res.json({result: "Success", temp: jobs})
+    let jobId = parseInt(req.body.jobId);
+    const job = await jobs.find({_id:jobId});
+    job[0].status = "completed";
+    console.log(job);
+    const result = await jobs.findOneAndUpdate({_id:jobId},job[0]);
+    return res.json({result: "Success", temp:result})
   }
 });
 

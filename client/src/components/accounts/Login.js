@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import axios from "axios";
-import { redirect } from 'react-router-dom';
 
 export default function SignUp (props) {
   const [email, setEmail] = useState();
@@ -9,34 +8,35 @@ export default function SignUp (props) {
 
   const handleLogin = (e) => {
     e.preventDefault();
+    const login = "login";
     const userLoginInfo = {
       action: "login",
-      email: email,
-      password: password
+      email: {email},
+      password: {password}
     };
     axios.post("http://localhost:3500/api/user/", userLoginInfo).then((repos) => {
-      if (repos.data.role === "null") {
+      if (repos.data[0].role === "null") {
         console.log(repos.data.role);
-      } else if (repos.data.role === "client") {
-        console.log(repos.data.role);
+      } else if (repos.data[0].role === "client") {
+        console.log(repos.data[0]);
         const userFound = {
-          userId: repos.data.clientId,
-          firstName: repos.data.firstName,
-          lastName: repos.data.lastName,
-          role: repos.data.role
+          userId: repos.data[0]._id,
+          firstName: repos.data[0].firstName,
+          lastName: repos.data[0].lastName,
+          role: repos.data[0].role
         }
         localStorage.setItem('user',JSON.stringify(userFound));
         
         props.handleLogInClose();
         window.location.replace("http://localhost:3000/login");
       } else {
-        console.log(repos.data.role);
+        console.log(repos.data[0].role);
         const userFound = {
-          userId: repos.data.clientId,
-          firstName: repos.data.firstName,
-          lastName: repos.data.lastName,
-          role: repos.data.role,
-          areaOfInterest: repos.data.areaOfInterest
+          userId: repos.data[0]._id,
+          firstName: repos.data[0].firstName,
+          lastName: repos.data[0].lastName,
+          role: repos.data[0].role,
+          areaOfInterest: repos.data[0].areaOfInterest
         }
         localStorage.setItem('user',JSON.stringify(userFound));
         

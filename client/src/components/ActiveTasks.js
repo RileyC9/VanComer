@@ -34,9 +34,9 @@ function ActiveTask(props) {
   // async and await???
   useEffect(() => {
     let jobPostsTemp = JSON.parse(localStorage.getItem("jobPosts"));
-    setJobPosts(jobPostsTemp.filter((job) => job.status !== "completed"));
+    setJobPosts(jobPostsTemp.filter((job) => 
+    job.status !== "completed"));
   }, []);
-
   // //Filter the jobs that do not have applicants
   // useEffect(() => {
   //   let jobPostsTemp = JSON.parse(localStorage.getItem('jobPosts'));
@@ -67,6 +67,7 @@ function ActiveTask(props) {
                             {job.jobDescription}
                           </p>
                         </div>
+                        {console.log(job)}
                       </div>
                       {/* <MDBBadge pill color='success' light>
                 Active
@@ -79,20 +80,13 @@ function ActiveTask(props) {
                     className="p-2 d-flex justify-content-around"
                   >
                     {/* Conditionally render the buttons according to unassigned applicants (to select applicant) or in progress status (to mark a task as completed) */}
-                    {job.applicants.length === 0 ? <SelectApplicants  job={job}/>
+                    {job.status === "searching" ? <SelectApplicants  job={job}/>
                     :<MarkAsCompleted  job={job}/>     
             }
                   </MDBCardFooter>
                 </MDBCard>
               </MDBCol>
             ))}
-
-
-  
-  
-
-
-
           </MDBRow>
         </MDBCardBody>
       </MDBCard>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
+import { FormCheck } from 'react-bootstrap';
 import axios from "axios";
 
 import React from "react";
@@ -18,18 +19,31 @@ import {
   MDBCardTitle,
   MDBCardSubTitle,
 } from "mdb-react-ui-kit";
+// import { FormCheck } from "react-bootstrap";
 
 function SelectApplicants(props) {
   const [show, setShow] = useState(false);
   const [jobId, setJobId] = useState(0);
 
   
-  const [jobProvider, setJobProvider] = useState(null);
+  const [updatedJob, setUpdatedJob] = useState(null);
 
   const handleClose = () => setShow(false);
 
   const handleShow = () => setShow(true);
 
+  const handleSubmit = (applicantId) => {
+    console.log(applicantId);
+  };
+  useEffect(() => {
+    const currentJobId = props.job._id;
+    axios.get("http://localhost:3500/api/testing/" + currentJobId)
+    .then((repos) => {
+      const job = repos.data;
+      setUpdatedJob(job);
+  console.log(updatedJob);
+    });
+  }, [])
   // function selectTasker() {
   //   const jobId = props.job.jobId;
   //   console.log("Job ID:", jobId);
@@ -75,13 +89,11 @@ function SelectApplicants(props) {
           </MDBListGroup>
 
           <MDBContainer>
-            <MDBRow className="row-cols-1 row-cols-md-2 gx-3">             {props.job.applicants.map((applicant) => (
-
-               
+            <MDBRow className="row-cols-1 row-cols-md-2 gx-3">
+            {props.job.applicants.map((applicant) => (
                 <MDBCol className="mb-4" key={applicant.id}>
                   <MDBCard className="h-100">
                     <MDBCardBody>
-                  
                       <div className="d-flex justify-content-between align-items-center">
                         <div className="d-flex align-items-center">
                           <img
@@ -93,6 +105,7 @@ function SelectApplicants(props) {
                           <div className="ms-3">
                             <p className="fw-bold mb-1"> {applicant.id}</p>
                             <p className="text-muted mb-0">{applicant.price}</p>
+                            <FormCheck className="form-check-input" id="housingOption" value={applicant.id} label={'Select'}/>
                           </div>
                         </div>
                       </div>
