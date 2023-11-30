@@ -1,16 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const jobs = require('../../Models/jobsModel');
+const jobs = require('../../jobs');
 let currentJobId = 8;
 
 /**
  * @route GET api/jobs/
  * @desc Retrives all the jobs match with the userId (For Client)
  **/
-router.get('/:userId', async (req, res) => {
+router.get('/:userId', (req, res) => {
   const userId = parseInt(req.params.userId);
   console.log(userId);
-  const targetJobs = await jobs.find({clientId: userId});
+  const targetJobs = jobs.filter(job.clientId=== userId);
   console.log(targetJobs);
   return res.json(targetJobs);
 });

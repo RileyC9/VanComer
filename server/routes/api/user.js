@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const users = require('../../Models/userModel');
+const users = require('../../Users');
 let currentUserId = 6;
 
 
@@ -8,17 +8,17 @@ let currentUserId = 6;
  * @route POST api/jobs/
  * @desc based on request action property, return a user or create a user
  **/
-router.post('/', async (req,res) => {
+router.post('/', (req,res) => {
   if (req.body.action == "login") {
     if (req.body.action == "login") {
     let userFound = {role:"null"};
-    userFound = await users.find(req.body.email);
+    userFound = users.filter((user) =>req.body.email === user.email );
     console.log(userFound);
-      if (userFound[0].password === req.body.password.password){
+      if (userFound.password === req.body.password){
         console.log("PW checked");
         return res.json(userFound);
       } else {
-        console.log(userFound[0].password);
+        console.log(userFound.password);
         console.log(req.body.password);
         return res.json(userFound);
       }
